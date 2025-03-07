@@ -1,11 +1,11 @@
 # Copyright 2020-2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-ARG BASE_IMAGE=public.ecr.aws/amazonlinux/amazonlinux:2
+ARG BASE_IMAGE=public.ecr.aws/amazonlinux/amazonlinux:2023-minimal
 
 FROM $BASE_IMAGE as builder
 
-RUN yum install -y \
+RUN dnf install -y \
 	cmake3 \
 	gcc \
 	git \
@@ -16,7 +16,7 @@ RUN yum install -y \
 	ninja-build \
 	doxygen
 
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain 1.63
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain 1.85.0
 
 # We keep the build artifacts in the -build directory
 WORKDIR /tmp/crt-builder
